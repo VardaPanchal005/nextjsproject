@@ -3,10 +3,9 @@
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { WorkflowStatus } from '@/types/workflow';
+import { WorkflowExecutionStatus, WorkflowStatus } from '@/types/workflow';
 import { Workflow } from '@prisma/client';
-import { CoinsIcon, CornerDownRightIcon, FileTextIcon, MoreVerticalIcon, MoveRightIcon, PlayIcon, ShuffleIcon, TrashIcon } from 'lucide-react';
-import Link from 'next/link';
+import { ChevronRightIcon, CoinsIcon, CornerDownRightIcon, FileTextIcon, MoreVerticalIcon, MoveRightIcon, PlayIcon, ShuffleIcon, TrashIcon } from 'lucide-react';
 import React, { useState } from 'react';
 import {
     DropdownMenu,
@@ -21,6 +20,9 @@ import DeleteWorkflowDialog from './DeleteWorkflowDialog';
 import RunBtn from './RunBtn';
 import SchedularDialog from './SchedularDialog';
 import { Badge } from '@/components/ui/badge';
+import { formatDistanceToNow } from 'date-fns';
+import ExecutionStatusIndicator from '@/app/workflow/runs/[workflowId]/_components/ExecutionStatusIndicator';
+import Link from 'next/link';
 
 const statusColors={ 
     [WorkflowStatus.DRAFT]:"bg-yellow-400 text-yellow-600",
@@ -58,6 +60,8 @@ function WorkflowCard({workflow}:{workflow:Workflow}) {
                     <WorkflowActions workflowName={workflow.name} workflowId={workflow.id}/>
             </div>
         </CardContent>
+        <LastRunDetails workflow=
+        {workflow}/>
     </Card>
   )
 }
@@ -90,11 +94,11 @@ function WorkflowActions({workflowName,workflowId}:{workflowId:string; workflowN
 
 function ScheduleSection({isDraft,creditsCost,workflowId,cron}:{isDraft:boolean,creditsCost:number,workflowId:string,cron:string | null;}){
     if (isDraft) return null;
-    return (<div className='flex items-centre gap-2'>
+    return (<div className='flex items-center gap-2'>
         <CornerDownRightIcon className='h-4 w-4 text-muted-foreground'/>
         <SchedularDialog workflowId={workflowId} cron={cron} key={`${cron}-${workflowId}`}/>
         <MoveRightIcon className='h-4 w-4 text-muted-foreground'/><TooltipWrapper content="Credit consumption for full run">
-            <div className='flex itemscenter gap-3'>
+            <div className='flex items-center gap-3'>
                 <Badge variant={"outline"} className="space-x-2 text-muted-foreground rounded-sm">
                     <CoinsIcon className="h-4 w-4"/>
                     <span className='text-sm'>{creditsCost}</span>
@@ -105,4 +109,20 @@ function ScheduleSection({isDraft,creditsCost,workflowId,cron}:{isDraft:boolean,
     </div>)
 }
 
-export default WorkflowCard
+function LastRunDetails({workflow}:{workflow:Workflow}){
+    const {lastRunAt,lastRunStatus,lastRunId}=workflow;
+    const formattedStartedAt=lastRunAt && formatDistanceToNow(lastRunAt,{addSuffix:true});
+    
+    return (
+        <div className='bg-primary/5 px-4 py-1 flex justify-between items-center text-muted-foreground'><div className='flex items-center text-sm gap-2'>
+            {lastRunAt && (
+            <Link href={`/workflow/runs/${workflow.id}/${lastRunId}`} className='flex items-center text-sm gap-2 group'>
+                <span>Last run:</span>
+                <ExecutionStatusIndicator status={lastRunStatus as WorkflowExecutionStatus}/>
+                <span>{lastRunStatus}</span>
+                <span>{formattedStartedAt}</span>
+                <ChevronRightIcon size={14} className='-translate-x-[2px] group-hover:translate-x-0 transition'/>
+            </Link>)}</div></div> 
+    )
+}
+export default WorkflowCard;
