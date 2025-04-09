@@ -180,6 +180,7 @@ async function finalizePhase(phaseId:string,success:boolean,outputs:any,LogColle
 async function executePhase(phase:ExecutionPhase,node:AppNode,environment:Environment,LogCollector:LogCollector):Promise<boolean>{
    const runFn=ExecutorRegistry[node.data.type];
    if(!runFn){
+    LogCollector.error(`not found executor for ${node.data.type}`)
     return false;
    } 
    const ExecutionEnvironment:ExecutionEnvironment<any>=createExecutionEnvironment(node,environment,LogCollector);

@@ -16,7 +16,8 @@ interface Props{
 }
 
 function TooltipWrapper(props: Props) {
-  return (
+  if (!props.content) return props.children;
+    return (
     <TooltipProvider delayDuration={0}> 
         <Tooltip>
             <TooltipTrigger asChild>{props.children}</TooltipTrigger>
