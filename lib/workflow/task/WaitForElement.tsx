@@ -1,12 +1,12 @@
 import { TaskParamType, TaskType } from "@/types/task";       
 import { WorkflowTask } from "@/types/workflow";
-import {EyeIcon} from "lucide-react";
+import {TimerIcon} from "lucide-react";
 
 export const WaitForElementTask={
        type: TaskType.WAIT_FOR_ELEMENT,
        label:"Wait for Element",
        icon:(props)=>(
-        <EyeIcon className="stroke-yellow-500"{...props}/>
+        <TimerIcon className="stroke-yellow-500"{...props}/>
        ),
        isEntryPoint:false,
        credits:1,
@@ -24,6 +24,7 @@ export const WaitForElementTask={
               {
                 name:"Visibility",
                 type:TaskParamType.SELECT,
+                hideHandle:true,
                 required:true,
                 options:[
                     {label:"Visible",value:"visible"},
