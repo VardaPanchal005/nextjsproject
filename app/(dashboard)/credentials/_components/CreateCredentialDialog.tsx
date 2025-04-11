@@ -5,7 +5,6 @@ import {Dialog,DialogContent,DialogTrigger} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Layers2Icon, Loader2, ShieldEllipsis } from "lucide-react";
 import CustomDialogHeader from "@/components/CustomDialogHeader";
-import { createWorkflowSchema, createWorkflowSchemaType } from "@/schema/workflow";
 import { useForm } from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -36,6 +35,8 @@ function CreateCredentialDialog({triggerText}:{triggerText?:string}){
         mutationFn:createCredential,
         onSuccess:()=>{
             toast.success("Credential created",{id:"create-credential"});
+            form.reset();
+            setOpen(false);
         },
         onError:()=>{
             toast.error("Failed to credential",{id:"create-credential"});
@@ -46,7 +47,7 @@ function CreateCredentialDialog({triggerText}:{triggerText?:string}){
         mutate(values);
     },[mutate])
     return(
-        <Dialog open={open} onOpenChange={(open)=>{form.reset(); setOpen(open);}}>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button>{triggerText??"Create credential"}</Button>
             </DialogTrigger>
@@ -79,7 +80,7 @@ function CreateCredentialDialog({triggerText}:{triggerText?:string}){
                             <Textarea className="resize-none"{...field}/>
                         </FormControl>
                         <FormDescription>
-                        Enter the value associated with this credential  <br/> This value will be securely encrypted and stored           </FormDescription>
+                        Enter the value associated with this credential  <br/> This value will be securely encrypted and stored</FormDescription>
                         <FormMessage/>
                     </FormItem>)}/>
                     <Button type="submit" className="w-full" disabled={isPending}>{!isPending && "Proceed"}{isPending &&<Loader2 className="animate-spin"/>}</Button></form></Form>

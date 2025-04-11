@@ -39,7 +39,7 @@ function WorkflowCard({workflow}:{workflow:Workflow}) {
         <CardContent className='p-4 flex items-center justify-between h-[100px]'>
             <div className='flex items-center justify-end space-x-3'>
             <div className={cn("w-10 h-10 rounded-full flex items-center justify-center",statusColors[workflow.status as WorkflowStatus])}>
-                {isDraft?(<FileTextIcon className="h-5 w-5"/>):(<PlayIcon className="h-5 w-5 text-black"/>)}
+                {isDraft?(<FileTextIcon className="h-5 w-5"/>):(<PlayIcon className="h-5 w-5 text-green-800"/>)}
                  
             </div>
             <div>
