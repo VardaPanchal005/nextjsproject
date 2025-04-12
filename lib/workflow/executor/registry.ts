@@ -10,6 +10,10 @@ import { WaitForElementExecutor } from "./WaitForElementExecutor";
 import { DeliverViaWebhookExecutor } from "./DeliverViaWebhookExecutor";
 import { ExtractDataWithAiExecutor } from "./ExtractDataWithAIExecutor";
 import { ReadPropertyFromJSONExecutor } from "./ReadPropertyFromJsonExecutor";
+import { AddPropertyToJSONExecutor } from "./AddPropertyToJsonExecutor";
+import { NavigateUrlTask } from "../task/NavigateUrl";
+import { NavigateUrlExecutor } from "./NavigateUrlExecutor";
+import { ScrollElementExecutor } from "./ScrollElementExecutor";
 
 type ExecutorFn<T extends WorkflowTask>=(environment:ExecutionEnvironment<T>) => Promise<boolean>;
 
@@ -26,5 +30,8 @@ export const ExecutorRegistry:RegistryType={
       WAIT_FOR_ELEMENT:WaitForElementExecutor,
       DELIVER_VIA_WEBHOOK:DeliverViaWebhookExecutor,
       EXTRACT_DATA_WITH_AI:ExtractDataWithAiExecutor,
-      READ_PROPERTY_FROM_JSON:ReadPropertyFromJSONExecutor
+      READ_PROPERTY_FROM_JSON:ReadPropertyFromJSONExecutor,
+      ADD_PROPERTY_TO_JSON:AddPropertyToJSONExecutor,
+      NAVIGATE_URL:NavigateUrlExecutor,
+      SCROLL_ELEMENT:ScrollElementExecutor
 }

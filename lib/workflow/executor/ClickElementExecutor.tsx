@@ -6,6 +6,7 @@ export async function ClickElementExecutor(environment:ExecutionEnvironment<type
         const selector=environment.getInput("Selector");
         if (!selector){
             environment.log.error("input->selector not defined");
+            return false;
         }
         await environment.getPage()!.click(selector);               
         return true;

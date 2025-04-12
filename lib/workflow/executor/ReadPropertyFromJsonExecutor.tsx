@@ -12,7 +12,7 @@ export async function ReadPropertyFromJSONExecutor(environment:ExecutionEnvironm
             environment.log.error("input->Property name not defined");
         }            
         const json=JSON.parse(jsonData);
-        const propertyValue=json(propertyName);
+        const propertyValue = json[propertyName];
         if (propertyValue===undefined){
             environment.log.error("property not found")
         }

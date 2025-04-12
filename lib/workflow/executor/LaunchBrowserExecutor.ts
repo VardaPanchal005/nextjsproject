@@ -9,7 +9,7 @@ export async function LaunchBrowserExecutor(environment:ExecutionEnvironment<typ
             throw new Error("Website url is not being passed properly its empty")
         }
         const browser=await puppeteer.launch({
-            headless:false, 
+            headless:true, 
         });           
         environment.log.info("Browser started successfully");
         environment.setBrowser(browser);
