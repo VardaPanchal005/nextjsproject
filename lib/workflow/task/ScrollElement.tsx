@@ -6,7 +6,7 @@ export const ScrollElementTask={
        type: TaskType.SCROLL_ELEMENT,
        label:"Scroll to Element", 
        icon:(props)=>(
-        <ArrowUpIcon className="stroke-indigo-500"{...props}/>   
+        <ArrowUpIcon className="stroke-rose-300"{...props}/>   
        ),
        isEntryPoint:false,
        credits:1,

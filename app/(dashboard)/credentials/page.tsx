@@ -38,7 +38,9 @@ async function UserCredentials(){
                 <p className='text-sm text-muted-foreground'>Click the button below to create credentials</p>
             </div>
         </div>
+        <div className='w-full flex justify-center mt-4'>
         <CreateCredentialDialog triggerText="Create your first credential"/>
+        </div>
        </Card> 
        );
     }
