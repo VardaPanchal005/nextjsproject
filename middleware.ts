@@ -1,23 +1,25 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextRequest, NextResponse } from 'next/server';
 
 const isPublicRoute = createRouteMatcher(['/sign-in(.*)',"/api/workflows/(.*)*"])
 
-export async function middleware(request) {
+export async function middleware(request: NextRequest) {
   try {
-
     console.log("Middleware executing for:", request.nextUrl.pathname);
     
-    // If you want to test with Clerk disabled:
-    return Response.next();
+    // For testing purposes, just pass through all requests
+    return NextResponse.next();
     
-    // Or with minimal Clerk:
-    // const auth = auth();
-    // return auth.next();
+    // When you want to re-enable Clerk:
+    // if (!isPublicRoute(request)) {
+    //   const auth = getAuth(request);
+    //   return auth.protect();
+    // }
+    // return NextResponse.next();
   } catch (error) {
-
     console.error("CRITICAL MIDDLEWARE ERROR:", error);
     
-    return new Response(JSON.stringify({ error: "Server configuration error" }), {
+    return new NextResponse(JSON.stringify({ error: "Server configuration error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" }
     });
