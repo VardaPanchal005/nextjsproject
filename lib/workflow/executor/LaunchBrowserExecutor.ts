@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer-core";
 import { Environment, ExecutionEnvironment } from "@/types/executor";
 import { LaunchBrowserTask } from "../task/LaunchBrowser";
-import { getOptions } from "../../puppeteerOptions";
+import { getOptions } from "../../../puppeteerOptions";
 
 
 export async function LaunchBrowserExecutor(
