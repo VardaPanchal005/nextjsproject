@@ -11,7 +11,7 @@ import DeletableEdge from './edges/DeletableEdge';
 import { TaskRegistry } from '@/lib/workflow/task/registry';
 
 const nodeTypes={
-    NebulaThreadNode:NodeComponent,
+    FlowScrapeNode:NodeComponent,
 };
 
 const edgeTypes={
