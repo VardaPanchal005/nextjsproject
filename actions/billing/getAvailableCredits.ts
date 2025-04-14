@@ -11,7 +11,7 @@ import { auth } from "@clerk/nextjs/server";
     const balance=await prisma.userBalance.findUnique({
         where:{userId},
     });
-    if (!balance) return 10000;
+    if (!balance) return 1000;
     return balance.credits;
     
  }
