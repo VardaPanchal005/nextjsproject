@@ -30,18 +30,18 @@ export async function GET(req: Request) {
 }
 
 function triggerWorkflow(workflowId: string) {
-  const triggerApiUrl = getAppUrl(`/api/workflows/execute?workflowId=${workflowId}`);
+  const apiPath = `api/workflows/execute?workflowId=${workflowId}`;
   
-
   const fetchUrl = process.env.NODE_ENV === 'development' 
-    ? triggerApiUrl 
-    : new URL(triggerApiUrl).pathname + new URL(triggerApiUrl).search;
+    ? getAppUrl(apiPath)
+    : apiPath;
   
   fetch(fetchUrl, {
     headers: {
-      Authorization: `Bearer ${process.env.API_SECRET!}`
+      Authorization: `Bearer ${process.env.API_SECRET || ''}`
     },
     cache: "no-store",
-  }).catch((error) =>
-    console.error("Error triggering workflow with id", workflowId, ":error->", error.message));
+  }).catch((error) => {
+    console.error(`Error triggering workflow ${workflowId}:`, error.message);
+  });
 }
