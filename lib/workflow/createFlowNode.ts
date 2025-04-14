@@ -8,7 +8,7 @@ export function CreateFlowNode(
 ): AppNode {
     return{
         id:crypto.randomUUID(),
-        type:"NebulaThreadNode",
+        type:"FlowScrapeNode",
         dragHandle:".drag-handle",
         data:{
             type:nodeType,
