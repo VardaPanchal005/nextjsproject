@@ -2,6 +2,10 @@ import { getAppUrl } from "@/lib/helper/appUrl";
 import prisma from "@/lib/prisma";
 import { WorkflowStatus } from "@/types/workflow";
 
+
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 export async function GET(req: Request) {
   try {
     const now = new Date();
@@ -26,8 +30,14 @@ export async function GET(req: Request) {
 }
 
 function triggerWorkflow(workflowId: string) {
-  const triggerApiUrl = getAppUrl(`api/workflows/execute?workflowId=${workflowId}`);
-  fetch(triggerApiUrl, {
+  const triggerApiUrl = getAppUrl(`/api/workflows/execute?workflowId=${workflowId}`);
+  
+
+  const fetchUrl = process.env.NODE_ENV === 'development' 
+    ? triggerApiUrl 
+    : new URL(triggerApiUrl).pathname + new URL(triggerApiUrl).search;
+  
+  fetch(fetchUrl, {
     headers: {
       Authorization: `Bearer ${process.env.API_SECRET!}`
     },
