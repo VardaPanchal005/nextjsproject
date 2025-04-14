@@ -3,10 +3,15 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 const isPublicRoute = createRouteMatcher(['/sign-in(.*)',"/api/workflows/(.*)*"])
 
 export default clerkMiddleware(async (auth, request) => {
-  if (!isPublicRoute(request)) {
-    await auth.protect()
+  try {
+    if (!isPublicRoute(request)) {
+      await auth.protect();
+    }
+  } catch (error) {
+    console.error("Middleware error:", error);
+    return new Response("Authentication error", { status: 401 });
   }
-})
+});
 
 export const config = {
   matcher: [
