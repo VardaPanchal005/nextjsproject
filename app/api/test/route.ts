@@ -11,7 +11,7 @@ export async function GET(req:NextRequest){
         await page.goto("https://quotes.toscrape.com/login");
         return Response.json({success: `${page.url()} visited`});
     } catch (error) {
-        return Response.json({error:JSON.stringify(error)})
+        return Response.json({error})
     }
 
 }
