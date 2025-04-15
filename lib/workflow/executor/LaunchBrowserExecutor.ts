@@ -2,6 +2,7 @@ import puppeteer from "puppeteer-core";
 import { Environment, ExecutionEnvironment } from "@/types/executor";
 import { LaunchBrowserTask } from "../task/LaunchBrowser";
 import { getOptions } from "@/lib/puppeteerOptions";
+const { chromium } = require('playwright');
 
 
 export async function LaunchBrowserExecutor(
@@ -16,7 +17,7 @@ export async function LaunchBrowserExecutor(
 
 
     const options = await getOptions(); 
-    const browser = await puppeteer.launch(options);
+    const browser = await chromium.launch();
 
     environment.log.info("Browser started successfully");
     environment.setBrowser(browser);
