@@ -1,3 +1,4 @@
+"use server";
 import chromium from "@sparticuz/chromium";
 
 const getLocalChromePath = () => {
