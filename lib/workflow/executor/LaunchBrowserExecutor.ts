@@ -17,7 +17,7 @@ export async function LaunchBrowserExecutor(
 
 
     const options = await getOptions(); 
-    const browser = await chromium.launch();
+    const browser = await puppeteer.launch(options);
 
     environment.log.info("Browser started successfully");
     environment.setBrowser(browser);
