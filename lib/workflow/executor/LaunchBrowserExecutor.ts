@@ -1,7 +1,8 @@
 import puppeteer from "puppeteer-core";
 import { Environment, ExecutionEnvironment } from "@/types/executor";
 import { LaunchBrowserTask } from "../task/LaunchBrowser";
-import { getOptions } from "../../puppeteerOptions";
+import { getOptions } from "@/lib/puppeteerOptions";
+
 
 
 export async function LaunchBrowserExecutor(
@@ -22,7 +23,7 @@ export async function LaunchBrowserExecutor(
     environment.setBrowser(browser);
 
     const page = await browser.newPage();
-    await page.goto(websiteUrl);
+    await page.goto(websiteUrl); 
 
     environment.setPage(page);
     environment.log.info(`Opened page at: ${websiteUrl}`);
