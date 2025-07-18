@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 const isPublicRoute = createRouteMatcher([
   '/sign-in(.*)',
   '/api/workflows/(.*)*',
-  '/api/cron/keepmealive' 
+  '/api/keepmealive' 
 ]);
 export default clerkMiddleware(async (auth, request) => {
   if (!isPublicRoute(request)) {
