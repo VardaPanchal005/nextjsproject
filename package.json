@@ -41,6 +41,7 @@
     "@radix-ui/react-toggle-group": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.1.8",
     "@sparticuz/chromium": "^130.0.0",
+    "@supabase/supabase-js": "^2.52.0",
     "@tanstack/react-query": "^5.68.0",
     "@xyflow/react": "^12.4.4",
     "ai": "^4.3.4",
