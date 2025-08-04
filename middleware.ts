@@ -7,9 +7,11 @@ const isPublicRoute = createRouteMatcher([
   '/api/keepmealive'
 ]);
 export default clerkMiddleware(async (auth, request) => {
-  if (!isPublicRoute(request)) {
-    await auth.protect()
+  if (isPublicRoute(request)) {
+    return NextResponse.next();
   }
+
+  return auth().protect();
 })
 
 export const config = {
