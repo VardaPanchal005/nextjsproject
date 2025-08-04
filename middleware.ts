@@ -10,9 +10,14 @@ export default clerkMiddleware(async (auth, request) => {
   if (isPublicRoute(request)) {
     return NextResponse.next();
   }
+  const { userId, redirectToSignIn } = await auth();
 
-  const authObj = await auth();
-  return authObj.protect();
+  if (!userId) {
+    return redirectToSignIn({ returnBackUrl: request.url });
+  }
+
+  return NextResponse.next();
+
 })
 
 export const config = {
