@@ -1,16 +1,19 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
 const isPublicRoute = createRouteMatcher([
   '/sign-in(.*)',
   '/api/workflows/(.*)*',
-  '/api/keepmealive' 
+  '/api/keepmealive'
 ]);
+
 export default clerkMiddleware(async (auth, request) => {
-  if (!isPublicRoute(request)) {
-    await auth.protect()
+  const pathname = request.nextUrl.pathname;
+
+  if (!isPublicRoute(pathname)) {
+    await auth().protect();
   }
-})
+});
 
 export const config = {
   matcher: [
