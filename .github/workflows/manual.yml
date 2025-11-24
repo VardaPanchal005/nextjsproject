@@ -1,0 +1,29 @@
+name: Manual and Scheduled Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Person to greet"
+        default: "World"
+        required: true
+        type: string
+
+  schedule:
+    - cron: "0 2 * * 1" 
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    steps:
+      - name: Send greeting
+        run: echo "Hello ${{ inputs.name }}"
+
+  keep_me_alive:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'schedule' }}
+    steps:
+      - name: Call /api/keepmealive
+        run: |
+          curl -X GET "https://nebulathread.vercel.app/api/keepmealive"
