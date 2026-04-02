@@ -1,5 +1,7 @@
 name: Manual and Scheduled Workflow
 
+permissions: {}
+
 on:
   workflow_dispatch:
     inputs:
