@@ -1,10 +1,9 @@
-
 version: 2
 updates:
-  - package-ecosystem: "" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "npm"        # must be exactly "npm"
+    directory: "/"                  # location of package.json
     schedule:
       interval: "weekly"
     ignore:
-       - dependency-name: "next"
-          versions: ["16.x"]
+      - dependency-name: "next"
+        versions: ["16.x"]
