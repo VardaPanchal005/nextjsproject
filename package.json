@@ -62,7 +62,7 @@
     "next": "14.2.5",
     "next-themes": "^0.4.6",
     "nextjs-toploader": "^3.8.16",
-    "puppeteer": "^24.4.0",
+    "puppeteer": "^24.40.0",
     "puppeteer-core": "^23.7.1",
     "react": "^18",
     "react-countup": "^6.5.3",
